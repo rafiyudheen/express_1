@@ -24,27 +24,27 @@ const toDoTask_Schema = new Schema({
 const todoTaskModel = mongoose.model("todoTasks", toDoTask_Schema);
 
 const app = express();
-const path = "C:\\Entri\\express\\data.json";
+// const path = "C:\\Entri\\express\\data.json";
 port = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-async function getData() {
-  const MyPromise = new Promise((resolve, reject) => {
-    readFile(path, (error, data) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
+// async function getData() {
+//   const MyPromise = new Promise((resolve, reject) => {
+//     readFile(path, (error, data) => {
+//       if (error) {
+//         console.log(error);
+//         return;
+//       }
 
-      resolve(JSON.parse(data));
-    });
-  });
+//       resolve(JSON.parse(data));
+//     });
+//   });
 
-  let c = await MyPromise;
-  return c;
-}
+//   let c = await MyPromise;
+//   return c;
+// }
 
 app.post("/", async (req, res) => {
   // let parsedData = await getData();
@@ -77,47 +77,47 @@ app.post("/", async (req, res) => {
 app.get("/", async (req, res) => {
   // let parsedData;
 
-  let parsedData = await getData();
-  console.log();
+  // let parsedData = await getData();
+  // console.log();
 
-  res.json(parsedData);
+  res.send("Connected");
   //parsedData.tasks[0].status="On Progress24"
 });
 
 app.patch("/", async (req, res) => {
-  let parsedData = await getData();
-  let index = req.body.index;
-  console.log(req.body);
-  parsedData.tasks.splice(index, 1, req.body.task);
-  writeFile(path, JSON.stringify(parsedData, null, 2), (err) => {
-    if (err) {
-      console.log("Failed to write updated data to file");
-      return;
-    }
+  // let parsedData = await getData();
+  // let index = req.body.index;
+  // console.log(req.body);
+  // parsedData.tasks.splice(index, 1, req.body.task);
+  // writeFile(path, JSON.stringify(parsedData, null, 2), (err) => {
+  //   if (err) {
+  //     console.log("Failed to write updated data to file");
+  //     return;
+  //   }
 
-    console.log("Updated file successfully");
-  });
-  res.json(parsedData.tasks);
+  //   console.log("Updated file successfully");
+  // });
+  res.send("Updated");
 });
 
 app.delete("/", async (req, res) => {
-  let parsedData = await getData();
-  console.log(req.body);
-  let index = req.body.index;
+  // let parsedData = await getData();
+  // console.log(req.body);
+  // let index = req.body.index;
 
-  // console.log(parsedData,"from Delete")
+  // // console.log(parsedData,"from Delete")
 
-  parsedData.tasks.splice(index, 1);
-  writeFile(path, JSON.stringify(parsedData, null, 2), (err) => {
-    if (err) {
-      console.log("Failed to write updated data to file");
-      return;
-    }
+  // parsedData.tasks.splice(index, 1);
+  // writeFile(path, JSON.stringify(parsedData, null, 2), (err) => {
+  //   if (err) {
+  //     console.log("Failed to write updated data to file");
+  //     return;
+  //   }
 
-    console.log("Updated file successfully");
-  });
+  //   console.log("Updated file successfully");
+  // });
 
-  res.json(parsedData.tasks);
+  res.send("Deleted");
 });
 
 app.listen(port, () => {
